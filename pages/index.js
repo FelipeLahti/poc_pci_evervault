@@ -1,21 +1,11 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import dynamic from 'next/dynamic'
-import { useEvervault } from '@evervault/react';
 
-const EvervaultProvider = dynamic(() => import('@evervault/react').then((mod) => mod.EvervaultProvider))
-
-const Last4DigitsInput = () => {
-  const isServerSide = typeof window === 'undefined';
-
-  if (isServerSide) {
-    return null;
-  }
-
-  return <EvervaultProvider teamId={"d7664f0891ca"}>
-    <div id={"form-cc"}></div>
-  </EvervaultProvider>
-}
+const Last4Digits = dynamic(() =>
+    import("../components/Last4Digits.tsx").then((mod) => mod.Last4Digits),
+  {ssr: false}
+)
 
 export default function Home() {
   return (
@@ -30,8 +20,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Evervault
         </h1>
-        <Last4DigitsInput/>
-
+        <Last4Digits/>
       </main>
     </div>
   )
